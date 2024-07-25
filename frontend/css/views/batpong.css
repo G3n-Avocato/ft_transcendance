@@ -1,0 +1,50 @@
+@font-face {
+	font-family: "digital-dream";
+	src: url('../fonts/Digital-Dream/DIGITALDREAM.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: "gotham-knights";
+	src: url('../fonts/Gotham-Knights/Gotham-Knights.otf') format('opentype');
+}
+
+#batpong {
+	height: calc(100vh - 85.08px);
+	background-image: url('../../img/game/home.gif');
+	background-size: cover;
+	background-position: center;
+}
+
+/* ************************************************************************** */
+/*                                 GAME MENU                                  */
+/* ************************************************************************** */
+
+h6,
+.welcome,
+.modes,
+.maps {
+	font-family: Aclonica;
+	color: white;
+}
+
+#playerContainers {
+	display: list-item;
+	overflow-y:auto;
+	height: 100px;
+	color: white;
+}
+
+#playerContainers input {
+	height: 20px;
+	width: 150px;
+}
+
+#playerContainers select {
+	height: 20px;
+	width: 90px;
+}
+
+/* ************************************************************************** */
+/*                                 GAME TITLES                                */
+/* ************************************************************************** */
+

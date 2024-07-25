@@ -1,0 +1,98 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/views/batcave.css' %}">
+
+<div class="container-fluid">
+	<div id="batcave" class="row pt-5">
+		<div class="col-md-7 d-flex flex-column justify-content-around">
+			<div class="tournament-name d-flex flex-column align-self-end mb-2">
+				<div class="label align-self-end px-4">
+					<h3 class="tournament_name">TOURNAMENT NAME</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
+					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
+					<div class="name"><b>{{ user.username }}</b></div>
+				</div>
+			</div>
+
+			<div class="player-stats d-flex flex-column mb-2">
+				<div class="label align-self-start px-4">
+					<h3 class="player_stats">PLAYER STATS</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
+					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
+					<div class="stats">
+						<div class="d-flex justify-content-between align-items-center mb-4">
+							<img class="img-type" src="{% static 'img/batman_vec.png' %}">
+							<div><b>{{ user.total_wins }} - {{ user.total_losses }}</b></div>
+							<img class="img-type" src="{% static 'img/joker_vec.png' %}">
+						</div>
+						<div class="d-flex">
+							<div class="mb-4 me-2 played_games">PLAYED GAMES:</div>
+							<div><b>{{ user.total_matches_played }}</b></div>
+						</div>
+						<div class="d-flex">
+							<div class="mb-4 me-2 win_ratio">WIN RATIO:</div>
+							<div><b>{{ user.win_rate }}%</b></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="match-history d-flex flex-column align-self-end mb-4">
+				<div class="label align-self-end px-4">
+					<h3 class="match_history">MATCH HISTORY</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center">
+					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
+					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
+					<div class="history">
+						{% for last_three_matches in user.last_three_matches %}
+							<div class="first d-flex mb-3">
+								{% if last_three_matches.winner.username == user.username %}
+									<img class="img-type" src="{% static 'img/batman_vec.png' %}">
+								{% else %}
+									<img class="img-type" src="{% static 'img/joker_vec.png' %}">
+								{% endif %}
+								<div class="d-flex flex-column align-items-center">
+									{% if last_three_matches.winner.username == user.username %}
+										<div class="victory">VICTORY</div>
+										<div class="score"><b>{{ last_three_matches.score }}</b> vs <b>{{ last_three_matches.rival }}</b></div>
+									{% else %}
+										<div class="defeat">DEFEAT</div>
+										<div class="score"><b>{{ last_three_matches.score_l }}-{{ last_three_matches.score_w }}</b> vs <b>{{ last_three_matches.rival }}</b></div>
+									{% endif %}
+								</div>
+							</div>
+							{% empty %}
+								<p class="no_match_history">No match history.</p>
+						{% endfor %}
+					</div>					
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5 d-flex flex-column justify-content-around">
+			<div class="graphic-view d-flex flex-column mb-4 h-100">
+				<div class="label align-self-center px-4">
+					<h3 class="graphic_view">GRAPHIC VIEW</h3>
+				</div>
+				<div class="box d-flex flex-column flex-nowrap justify-content-around align-items-center">
+					{% if user.total_matches_played < 2 %}
+						<p class="not_enough_data">Not enough data.</p>			
+					{% else %}
+						<div id="userData" wins="{{ user.total_wins }}" losses="{{ user.total_losses }}" played_games="{{ user.total_matches_played}}" user_score="{{ user.user_score }}"></div>
+						<div class="d-flex flex-column align-items-center">
+							<canvas id="pieChart" class="pie-chart" width="300px" height="300px"></canvas>
+							<p class="victories_defeats_ratio">Victories / Defeats Ratio</p>
+						</div>
+						<div class="d-flex flex-column align-items-center">
+							<canvas id="curveGraph" class="mb-3" width="275" height="200"></canvas>
+							<p class="scored_points_history">Scored Points History</p>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

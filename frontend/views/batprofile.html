@@ -1,0 +1,247 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/views/batprofile.css' %}">
+
+<div class="container-fluid">
+	<div id="batprofile" class="row pt-5 pb-0">
+		<div class="col-md-7 d-flex flex-column justify-content-around">
+			<div class="user d-flex flex-column align-self-end mb-5">
+				<div class="label align-self-end px-4">
+					<h3 class="username">USERNAME</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5">
+					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
+					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
+					<div class="name" id="username">{{ user.username }}</div>
+					<div class="form-check form-switch">
+						{% if user.log2fa %}
+							<input class="form-check-input" type="checkbox" role="switch" id="Switch2FA" checked>
+						{% else %}
+							<input class="form-check-input" type="checkbox" role="switch" id="Switch2FA">
+						{% endif %}
+						<label class="form-check-label" for="Switch2FA">2FA</label>
+					</div>
+				</div>
+				<div class="label align-self-center px-4">
+					<h3 class="change_username" data-bs-toggle="modal" data-bs-target="#usernameModal">CHANGE USERNAME...</h3>
+				</div>
+			</div>
+
+			<div class="email d-flex flex-column align-self-end mb-2">
+				<div class="label align-self-start px-4">
+					<h3 class="email_address">EMAIL ADDRESS</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5">
+					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
+					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
+					<div class="address">{{ user.email }}</div>
+				</div>
+			</div>
+
+			<div class="pass d-flex flex-column align-self-end mb-5">
+				<div class="label align-self-end px-4">
+					<h3 class="password">PASSWORD</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5">
+					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
+					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
+					<div class="pass">{{ user.password }}</div>
+				</div>
+				<div class="label align-self-center px-4">
+					<h3 class="change_password" data-bs-toggle="modal" data-bs-target="#passwordModal">CHANGE PASSWORD...</h3>
+				</div>
+			</div>
+
+			<div class="profile-pic d-flex flex-column align-self-end mb-2">
+				<div class="label align-self-start px-4">
+					<h3 class="profile_pic">PROFILE PIC</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative justify-content-center align-items-center py-5">
+					<img src="{% static 'img/dots.png' %}" class="dots-top-left">
+					<img src="{% static 'img/dots.png' %}" class="dots-bottom-right">
+					<div>
+						<img id="avatarBatprofile" class="pic" src="{{user.avatar.url}}">
+					</div>
+				</div>
+				<div class="label align-self-center px-4">
+					<h3 class="change_profile_pic" data-bs-toggle="modal" data-bs-target="#avatarModal">CHANGE PROFILE PIC...</h3>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5 d-flex flex-column justify-content-around gy-5 gy-md-0">
+			<div class="friends-list d-flex flex-column mb-2">
+				<div class="label align-self-center px-4">
+					<h3 class="friends_list">FRIENDS LIST</h3>
+				</div>
+				<div class="box d-flex flex-column position-rlative align-items-center py-3">
+					<ul class="p-0">
+						{% for friend in friends %}
+							<div class="friends d-flex justify-content-between align-items-center mb-3 p-2">
+								<div>
+									<button type="button" id="open-canvas-profil" user-id="{{ friend.id }}" title="Profil">
+										<img class="avatar" src="{{friend.avatar.url}}" alt="Avatar" />
+									</button>
+								</div>
+								<div class="name">{{ friend.username }}</div>
+								<div></div>
+							</div>
+							{% empty %}
+								<p class="no_friends">No friends yet.</p>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			<div class="all-users d-flex flex-column mb-2">
+				<div class="label align-self-center px-4">
+					<h3 class="all_users">ALL USERS</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative align-items-center py-3">
+					<ul class="p-0">
+						{% for user in all_users  %}
+							{% if not user.is_superuser %}
+								{% if user not in request.user.friends.all and user != request.user %}
+									<div class="users d-flex justify-content-between align-items-center mb-3 p-2">
+										<div>
+											<button type="button" id="open-canvas-profil" user-id="{{ user.id }}" title="Profil">
+												<img class="avatar" src="{{user.avatar.url}}" alt="Avatar" />
+											</button>
+										</div>
+										<div class="name">{{ user }}</div>
+										<div>{% csrf_token %}<a href="#"><img id="send-friend-request" user-id="{{ user.id }}" class="add-friend-icon" src="{% static 'img/add_friend.png' %}" title="Add friend"></a></div>
+									</div>
+								{% endif %}
+							{% endif %}
+							{% empty %}
+								<p class="no_user m-0 pt-5">No user.</p>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+			<div class="add-friend d-flex flex-column mb-3">
+				<div class="label align-self-center px-4">
+					<h3 class="friend_requests">FRIEND REQUESTS</h3>
+				</div>
+				<div class="box d-flex flex-column position-relative align-items-center py-3">
+					{% for friend_request in all_friend_request %}
+						<div class="requests d-flex justify-content-between align-items-center mb-3 p-2">
+							<div><img class="avatar" src="{{ friend_request.from_user.avatar.url }}"></div>
+							<div class="name">{{ friend_request.from_user.username }}</div>
+							<div>{% csrf_token %}<a href="#"><img id="accept-friend-request" request-id="{{ friend_request.id }}" class="accept-icon" src="{% static 'img/accept.png' %}" title="Accept"></a></div>
+							<div>{% csrf_token %}<a href="#"><img id="decline-friend-request" request-id="{{ friend_request.id }}" class="decline-icon" src="{% static 'img/decline.png' %}" title="Decline"></a></div>
+						</div>
+						{% empty %}
+							<p class="no_friend_request">No friend requests.</p>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	<div class="modal fade" tabindex="-1" id="usernameModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title change_username">CHANGE USERNAME...</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div class="d-flex mb-3">
+						<div class="me-1 current_username">Your current username is</div>
+						<div id="currentUsername"><b>{{ user.username }}</b>.</div>
+					</div>
+					<form id="usernameForm" method="post">
+						{% csrf_token %}
+						{% for field in formUsername %}
+							<div class="pb-3">
+								<label class="new_username">{{ field.label }}</label>
+								{{ field }}
+							</div>
+						{% endfor %}
+						<button type="submit button" id="formUsername" class="btn btn-primary update update_button">Update</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" tabindex="-1" id="passwordModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title change_password">CHANGE PASSWORD...</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="passwordForm" method="post">
+						{% csrf_token %}
+						<div class="form-group pb-2">
+							<label for="id_old_password" class="control-label id_old_password">Current password</label>
+							<input type="password" name="old_password" class="form-control" id="id_old_password" autocomplete="off">
+						</div>
+						<div class="form-group pb-2">
+							<label for="id_new_password1" class="control-label id_new_password1">New password</label>
+							<input type="password" name="new_password1" class="form-control" id="id_new_password1" autocomplete="off">
+						</div>
+						<div class="form-group pb-3">
+							<label for="id_new_password2" class="control-label id_new_password2">Confirm new password</label>
+							<input type="password" name="new_password2" class="form-control" id="id_new_password2" autocomplete="off">
+						</div>
+						<button type="submit button" class="btn btn-primary update update_button">Update</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" tabindex="-1" id="avatarModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title change_profile_pic">CHANGE PROFILE PIC...</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form id="avatarForm" method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						{% for field in formAvatar %}
+							<div class="pb-3">
+								<div class="pb-3">
+									<label class="{{ field.auto_id }}">{{ field.label }}</label>
+								</div>
+								{{ field }}
+							</div>
+						{% endfor %}
+						<button type="submit button" class="btn btn-primary update update_button">Update</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" tabindex="-1" id="otpModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title qr_codeOtpModal">Activate 2FA</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<form id="otpEnable" method="post" action="verify_2fa">
+					{% csrf_token %}
+					<div class="modal-body d-flex flex-column align-items-center">
+						<img id="qrcode2FA" src="" alt="QR Code" width=70% height=70%>
+						<input type="text" name="otp" id="otpInput" placeholder="OTP code" class="form-control mt-3">
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Activate</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="UserDetails" aria-labelledby="offcanvasRightLabel">
+		<div class="offcanvas-header">
+		  <h5 class="offcanvas-title text-reset" id="offcanvasRightLabel">BatComputer</h5>
+		  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body p-3">
+			<div class="card mb-3">
+				<div class="card-body">
+				</div>
+			</div>	
+		</div>
+	</div>
+</div>

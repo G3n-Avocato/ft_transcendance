@@ -1,0 +1,436 @@
+body {
+	height: 100vh;
+	background-color: #90D0C3;
+}
+
+#batprofile {
+	height: 90vh;
+}
+
+/* ************************************************************************** */
+/*                                  USERNAME                                  */
+/* ************************************************************************** */
+
+.user {
+	height: 25%;
+	width: 90%;
+}
+
+.user .box {
+	background-color: #484887;
+}
+
+.user .box .name {
+	font-size: x-large;
+}
+
+/* ************************************************************************** */
+/*                                    EMAIL                                   */
+/* ************************************************************************** */
+
+.email {
+	height: 25%;
+	width: 90%;
+}
+
+.email .box {
+	background-color: coral;
+}
+
+.email .box .address {
+	font-size: x-large;
+}
+
+@media (max-width: 900px) {
+	.email .box .address {
+		font-size: large;
+	}
+}
+
+/* ************************************************************************** */
+/*                                  PASSWORD                                  */
+/* ************************************************************************** */
+
+.pass {
+	width: 90%;
+}
+
+.pass .box {
+	background-color: #457BA1;
+}
+
+.pass .box .pass {
+	font-size: x-large;
+	-webkit-text-security: disc;
+	max-width: 12ch;
+	overflow: clip;
+}
+
+/* ************************************************************************** */
+/*                                 PROFILE PIC                                */
+/* ************************************************************************** */
+
+.profile-pic {
+	height: 25%;
+	width: 90%;
+}
+
+.profile-pic .box {
+	background-color: black;
+}
+
+.profile-pic .box .pic {
+	width: 100px;
+	height: 100px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+/* ************************************************************************** */
+/*                                FRIENDS LIST                                */
+/* ************************************************************************** */
+
+.friends-list {
+	height: 33%;
+}
+
+.friends-list .box {
+	background-color: black;
+	overflow-y: auto;
+}
+
+.friends-list .box .friends {
+	background-color: white;
+	border-radius: 10px;
+	width: 250px;
+	color: black;
+}
+
+.friends-list .box .friends .avatar {
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 50%;
+	pointer-events: none;
+}
+
+.friends-list .box .friends .status {
+	width: 50px;
+}
+
+.friends-list .box .friends .status {
+	width: 15px;
+	height: 15px;
+	background: green;
+}
+
+@media (max-width: 848px) {
+	.friends-list .box .friends {
+		width: 225px;
+	}
+}
+
+@media (max-width: 788px) {
+	.friends-list .box .friends {
+		width: 200px;
+	}
+}
+
+/* ************************************************************************** */
+/*                                 ALL USERS                                  */
+/* ************************************************************************** */
+
+.all-users {
+	height: 33%;
+}
+
+.all-users .box {
+	background-color: black;
+	overflow-y: auto;
+}
+
+.all-users .box .users {
+	background-color: white;
+	border-radius: 10px;
+	width: 250px;
+	color: black;
+}
+
+.all-users .box .users .avatar {
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 50%;
+	pointer-events: none;
+}
+
+.all-users .box .users .add-friend-icon {
+	width: 30px;
+}
+
+.all-users .box .users .status {
+	width: 50px;
+}
+
+@media (max-width: 848px) {
+	.all-users .box .users {
+		width: 225px;
+	}
+}
+
+@media (max-width: 788px) {
+	.all-users .box .users {
+		width: 200px;
+	}
+}
+
+/* ************************************************************************** */
+/*                                ADD A FRIEND                                */
+/* ************************************************************************** */
+
+.add-friend {
+	height: 33%;
+}
+
+.add-friend .box {
+	background-color: black;
+	overflow-y: auto;
+}
+
+.add-friend .box .requests {
+	background-color: white;
+	border-radius: 10px;
+	width: 250px;
+	color: black;
+}
+
+.add-friend .box .requests .avatar {
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.add-friend .box .requests .accept-icon {
+	width: 30px;
+}
+
+.add-friend .box .requests .decline-icon {
+	width: 30px;
+}
+
+@media (max-width: 848px) {
+	.add-friend .box .requests {
+		width: 225px;
+	}
+}
+
+@media (max-width: 788px) {
+	.add-friend .box .requests {
+		width: 200px;
+	}
+}
+
+/* ************************************************************************** */
+/*                                    LABEL                                   */
+/* ************************************************************************** */
+
+.label {
+	height: 35px;
+	width: fit-content;
+	margin-top: -22px;
+	z-index: 1;
+	transform: skew(25deg);
+	background-color: #FFEEA7;
+}
+
+.label h3 {
+	text-align: center;
+	font-size: 1.4rem;
+	padding-top: 5px;
+	transform: skew(-25deg);
+	font-family: "Comic Sans MS";
+	font-weight: 400;
+	color: black;
+}
+
+/* ************************************************************************** */
+/*                                    BOX                                     */
+/* ************************************************************************** */
+
+.box {
+	height: 100%;
+	margin: 0 30px;
+	margin-top: -1em;
+	color: #fff;
+	border: #fff 7px solid;
+	font-family: "Comic Sans MS";
+}
+
+.dots-top-left {
+	width: 10vw;
+	position: absolute;
+	transform: rotate(180deg);
+	top: 0;
+	left: 0;
+}
+
+.dots-bottom-right {
+	width: 10vw;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+/* ************************************************************************** */
+/*                                    MODAL                                   */
+/* ************************************************************************** */
+
+.modal-header {
+	background-color: #FFEEA7;
+	font-family: "Comic Sans MS";
+}
+
+.modal-body .errorlist {
+	visibility: hidden;
+}
+
+.modal-body p {
+	margin-bottom: 1.5rem;
+}
+
+.modal-body .current-username {
+	margin-bottom: 1.5rem;
+}
+
+.modal-body .update {
+	color: black;
+	background-color: #FFEEA7;
+	border: #ffdf60;
+	--bs-btn-active-bg: #ffe787;
+}
+
+
+/* ************************************************************************** */
+/*                                    OFFCANVAS                               */
+/* ************************************************************************** */
+
+#open-canvas-profil {
+    border: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
+	position: relative;
+	z-index: 10;
+}
+
+.offcanvas {
+	background-color: #000000cc;
+	border-top-left-radius: 20px;
+  	border-bottom-left-radius: 20px;
+	border-width: 5px;
+	border-color: #ff0000;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+	transition: transform 0.3s ease-in-out;
+	font-family: 'Courier New', Courier, monospace;
+}
+
+.offcanvas-header {
+	border-bottom: 3px solid #FFD700;
+	padding-bottom: 10px;
+	color: #ffd700;
+}
+
+.offcanvas-body {
+	max-height: calc(100vh - 120px); /* Hauteur maximale pour éviter le défilement */
+	overflow-y: auto; /* Permet le défilement si nécessaire */
+	padding: 30px;
+	background-color: #000000aa;
+	color: #ffffff;
+	font-size: 16px;
+	transform: translateY(0);
+  }
+
+#dynamicContent p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+#dynamicContent ul li {
+    padding: 5px 0;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+#dynamicContent ul li:last-child {
+    margin-bottom: 0;
+}
+
+.profile-card {
+    flex-direction: row;
+	border-radius: 10px;
+	box-shadow: 0 2px 5px rgba(255,0,0,0.5);
+	padding: 20px;
+	margin-bottom: 20px;
+	background-color: #00000088;
+	color: #ffffff;
+	width: 100%;
+}
+
+.avatar-profil {
+	width: 110px;
+	height: 110px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.avatar-profil-container {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.user-info {
+    display: flex;
+	align-items: center;
+	justify-content: space-between;
+	position: relative;
+}
+
+.stat-item {
+	background-color: #ff000077;
+	color: #ffffff;
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	display: flex;
+    justify-content: flex;
+}
+
+.win-rate strong {
+	margin-right: 150px;
+}
+
+.total-matches strong {
+    margin-right: 35px;
+}
+
+.friend-list-item {
+    display: flex;
+	align-items: center;
+    gap: 15px;
+	justify-content: space-between;
+}
+
+.friend-list-item span {
+	font-size: 18px;
+	margin-left: 15px;
+}
+.friend-avatar {
+    width: 60px;
+    height: 60px;
+	object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #000;
+	margin-right: 10px;
+}

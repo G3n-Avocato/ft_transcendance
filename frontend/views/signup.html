@@ -1,0 +1,21 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/views/signup.css' %}">
+
+<div class="container-fluid">
+	<div id="signup" class="row pt-5 pb-4">
+		<div class="col d-flex justify-content-center align-items-center">
+			<div class="form ps-4 pe-4 pt-4 pb-4">
+				<form id="signupForm" method="post">
+					{% csrf_token %}
+					{% for field in form %}
+						<div class="d-flex flex-row align-items-center justify-content-between pb-3">
+							<label class="{{ field.auto_id }} pe-3">{{ field.label }}</label>
+							{{ field }}
+						</div>
+					{% endfor %}
+					<button class="btn btn-primary sign_up sign-up" type="submit">Sign up</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

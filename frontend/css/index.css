@@ -1,0 +1,72 @@
+/* ************************************************************************** */
+/*                                    FONTS                                   */
+/* ************************************************************************** */
+
+@font-face {
+	font-family: "Aclonica";
+	src: url('fonts/Aclonica/aclonica-regular.woff2') format('woff2'),
+		 url('fonts/Aclonica/aclonica-regular.woff') format('woff');
+}
+
+@font-face {
+	font-family: "Comic Sans MS";
+	src: url('fonts/Comic-Sans-MS/comic-sans-ms.woff2') format('woff2'),
+		 url('fonts/Comic-Sans-MS/comic-sans-ms.woff') format('woff');
+}
+
+/* ************************************************************************** */
+/*                                   HEADER                                   */
+/* ************************************************************************** */
+
+.navbar {
+	background-color: #FFFF00;
+}
+
+.logo {
+	width: 100px;
+}
+
+.nav-item {
+	font-family: Aclonica;
+}
+
+.nav-link:hover {
+	text-decoration: underline;
+	text-underline-position: under;
+	text-decoration-thickness: 2px;
+	text-underline-offset: 3px;
+}
+
+.dropdown-menu {
+	background-color: #FFFF00;
+}
+
+.dropdown-menu.languages.show {
+	right: 0;
+	left: auto;
+}
+
+.dropdown-menu.signout.show {
+	right: 0;
+	left: auto;
+}
+
+.dropdown-menu> li> a:hover {
+	background-color: #aaaa00;
+}
+
+.active-lang {
+	display: none;
+}
+
+.lang-icon {
+	width: 50px;
+	height: 25px;
+}
+
+.avatar {
+	width: 50px;
+	height: 50px;
+	object-fit: cover;
+	border-radius: 50%;
+}

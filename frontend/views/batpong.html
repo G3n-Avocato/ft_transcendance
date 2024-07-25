@@ -1,0 +1,96 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/views/batpong.css' %}">
+<script src="{% static 'js/batpong.js' %}"></script>
+
+<section>
+	<div class="container-fluid">
+		<div id="batpong" class="row">
+			<div class="col d-flex flex-column justify-content-center align-items-center">
+				<div class="col-7">
+					<div id="first-menu">
+						<h1 class="welcome d-flex flex-column align-items-center pb-3">Welcome to the Batpong!</h1>
+						
+						<h6 class="game_mode d-flex flex-column align-items-center pb-3">Select the game mode of the Pong you want to play.</h6>
+						<div class="d-grid gap-2">
+							<button id="versus" class="btn btn-light mode">1VS1</button>
+							<button id="ai" class="ai_opponent btn btn-light mode">AI Opponent</button>
+							<button id="tournament" class="tournament btn btn-light mode">Tournament</button>
+						</div>
+	
+						<div class="d-flex flex-column align-items-center">
+							<button id="play" class="play btn btn-light mt-3">Let's play!</button>
+						</div>
+					</div>
+
+					<div id="options-menu" class="mt-3">
+						<h6 class="select_map d-flex flex-column pb-3">Select the map:</h6>
+						<div class="d-flex">
+							<button class="default btn btn-light flex-fill me-1 map">Default</button>
+							<button class="batcave btn btn-light flex-fill me-1 map">Batcave</button>
+							<button class="arkham_asylum btn btn-light flex-fill me-1 map">Arkham Asylum</button>
+							<button class="wayne_manor btn btn-light flex-fill map">Wayne Manor</button>
+						</div>
+
+						<h6 class="players_customization d-flex flex-column pb-3 mt-3">Players customization:</h6>
+						<div class="d-flex">
+							<button id="add-player" class="add_player btn btn-light flex-fill me-1">Add player</button>
+							<button id="remove-player" class="remove_player btn btn-light flex-fill me-1">Remove player</button>
+						</div>
+
+						<div id="playerContainers" class="mt-3">
+							<div class="d-flex">
+								<div>
+									<label class="player">Player </label>
+									<label>1 alias:</label>
+									<input type="text" id="player1alias" value="{{ user.username }}">
+								</div>
+								<div>
+									<label class="ms-3 player">Player </label>
+									<label>1</label>
+									<label class="color"> color:</label>
+									<select id="p1color">
+										<option class="blue" value="blue">Blue</option>
+										<option class="red" value="red">Red</option>
+										<option class="yellow" value="yellow">Yellow</option>
+										<option class="green" value="green">Green</option>
+										<option class="purple" value="purple">Purple</option>
+									</select>
+								</div>
+							</div>
+							<div class="d-flex">
+								<div>
+									<label class="player">Player </label>
+									<label>2 alias:</label>
+									<input type="text" id="player2alias" value="guest">
+								</div>
+								<div>
+									<label class="ms-3 player">Player </label>
+									<label>2</label>
+									<label class="color"> color:</label>
+									<select id="p2color">
+										<option class="red" value="red">Red</option>
+										<option class="blue" value="blue">Blue</option>
+										<option class="yellow" value="yellow">Yellow</option>
+										<option class="green" value="green">Green</option>
+										<option class="purple" value="purple">Purple</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="d-flex flex-column align-items-center">
+							<button id="play-custom" class="play btn btn-light mt-3">Let's play!</button>
+						</div>
+					</div>
+				</div>
+				
+				<form id="matchForm" method="POST">
+					{% csrf_token %}
+					{{ form.as_p }}
+				</form>
+				<h6 id="userid" style="display: none;">{{ user.id }}</h6>
+				<h6 id="csrftoken" style="display: none;">{% csrf_token %}</h6>
+				<canvas id="boardpong" width="1920px" height="1080px"></canvas>
+			</div>
+		</div>
+	</div>
+</section>

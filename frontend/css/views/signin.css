@@ -1,0 +1,52 @@
+#signin {
+	height: calc(100vh - 85.08px);
+	background-color: #252525;
+	background-image: url("../../img/logo.png");
+	background-repeat: space repeat;
+	background-size: 150px;
+}
+
+/* ************************************************************************** */
+/*                                    FORM                                    */
+/* ************************************************************************** */
+
+.form {
+	background-color: #252525;
+	border-radius: 25px;
+}
+
+[class^="id_"] {
+	font-family: "Aclonica", sans-serif;
+	color: white;
+}
+
+.form ul li {
+	font-family: "Aclonica", sans-serif;
+	color: white;
+}
+
+.sign-in {
+	color: black;
+	background-color: #FFFF00;
+	border: #caca00;
+	--bs-btn-hover-bg: #caca00;
+	--bs-btn-active-bg: #adad00;
+}
+
+.sign-in-42 {
+	background-color: #00babc;
+	border: #009396;
+	--bs-btn-hover-bg: #009396;
+	--bs-btn-active-bg: #009396;
+}
+
+.not-a-member {
+	font-family: "Aclonica", sans-serif;
+	color: white;
+}
+
+.sign-up-now,
+.sign-up-now:hover {
+	font-family: "Aclonica", sans-serif;
+	color: white;
+}

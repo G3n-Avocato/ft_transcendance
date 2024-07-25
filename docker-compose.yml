@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  batpong:
+    image: batpong
+    container_name: Batpong
+    build:
+      context: containers/batpong
+    volumes:
+      - .:/app
+      - static_data:/app/fronthand
+    env_file:
+      - .env
+    environment:
+      - SQL_NAME=${SQL_NAME}
+      - SQL_USER=${SQL_USER}
+      - SQL_PWD=${SQL_PASSWORD}
+      - SQL_HOST=${SQL_HOST}
+      - SQL_PORT=${SQL_PORT}
+      - UID_CLIENT=${UID_CLIENT}
+      - SECRET_CLIENT=${SECRET_CLIENT}
+    depends_on:
+      PostgreSQL:
+        condition: service_healthy
+  
+  PostgreSQL:
+    container_name : PostgreSQL
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${SQL_NAME}
+      - POSTGRES_USER=${SQL_USER}
+      - POSTGRES_PASSWORD=${SQL_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  nginx:
+    container_name: nginx
+    image: nginx 
+    build: ./containers/nginx
+    volumes:
+      - .:/app
+      - static_data:/static
+    ports:
+      - "8000:443"
+    depends_on:
+      - batpong
+  
+volumes:
+  postgres_data:
+
+  static_data:
+
+networks:
+    ft_transcendence:
+        driver: bridge
